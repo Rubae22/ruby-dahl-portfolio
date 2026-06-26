@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pholish Brand Identity — Ruby Dahl Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fustat:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    body { background: var(--white); color: var(--black); }
+
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+
+    /* ── FULL-BLEED HERO with overlaid nav + title ── */
+    .hero { position: relative; width: 100%; height: clamp(380px, 84vh, 940px); overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; z-index: 0; }
+    .hero-scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 26%, rgba(0,0,0,0) 44%, rgba(0,0,0,0.58) 100%); }
+
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: transparent;
+      transition: background 0.25s ease, box-shadow 0.25s ease; }
+    .nav .nav-logo img { height: 55px; width: 46px; object-fit: contain; transition: filter 0.25s ease; }
+    .nav .nav-links a { color: #fff; border: none; padding: 0; margin-left: 1.4rem;
+      transition: color 0.25s ease, opacity 0.2s ease; }
+    .nav .nav-links a:hover { opacity: 0.6; background: transparent; }
+    /* once scrolled off the hero: solid white bar, dark logo + links for contrast */
+    .nav.scrolled { background: var(--white); box-shadow: 0 1px 0 rgba(0,0,0,0.10); }
+    .nav.scrolled .nav-logo img { filter: brightness(0); }
+    .nav.scrolled .nav-links a { color: var(--black); border: none; }
+    .nav.scrolled .nav-links a:hover { opacity: 0.6; background: transparent; color: var(--black); }
+
+    .hero-title { position: absolute; z-index: 2; left: var(--pad); bottom: clamp(0.75rem, 4vh, 2.25rem); margin: 0;
+      font-size: clamp(44px, 6vw, 92px); font-weight: 800; line-height: 1; letter-spacing: -0.02em;
+      color: #f3e7c4; text-shadow: 0 2px 22px rgba(0,0,0,0.55); }
+
+    /* ── INTRO (meta + body) ── */
+    .intro { padding: 2.5rem var(--pad) 3rem; }
+    .intro .meta-row { margin-bottom: 2rem; }
+    .intro-body { font-size: clamp(16px, 1.4vw, 22px); line-height: 1.6; color: #111; max-width: 880px; }
+    .intro-body p { margin-bottom: 1em; }
+    .intro-body p:last-child { margin-bottom: 0; }
+
+    /* ── SECTIONS ── */
+    .section { padding: 2.5rem var(--pad); }
+    .section-label {
+      font-size: clamp(11px, 0.9vw, 13px);
+      font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--grey); margin-top: 0.75rem;
+    }
+    .img-full { width: 100%; max-width: 900px; margin: 0 auto; line-height: 0; }
+    .img-full img { width: 100%; height: auto; display: block; }
+
+    /* ── INTRO QUOTE ── */
+    .quote { background: #1f8a7a; padding: clamp(2.5rem, 6vh, 4.5rem) var(--pad); }
+    .quote p { font-size: clamp(17px, 1.5vw, 22px); line-height: 1.55; font-weight: 700; color: #fff; max-width: 980px; margin: 0 auto 1em; }
+    .quote p:last-child { margin-bottom: 0; }
+
+    /* ── DESIGN IN CONTEXT ── */
+    .context-heading { padding: 3rem var(--pad) 1.5rem; font-size: clamp(20px, 2.6vw, 34px); font-weight: 700; letter-spacing: -0.01em; }
+    .context-full { max-width: 1080px; margin: 0 auto 1rem; padding: 0 var(--pad); line-height: 0; }
+    .context-full img { width: 100%; height: auto; display: block; }
+    .context-row { max-width: 1080px; margin: 0 auto 1rem; padding: 0 var(--pad); display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
+    .context-row .tile { line-height: 0; }
+    .context-row img { width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: center; display: block; }
+
+    /* ── PREV / NEXT ── */
+    .work-nav {
+      margin: 4rem var(--pad) 0; padding: 1.5rem 2rem; border: 1px solid #e0e0e0;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .work-nav a { font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey); transition: color 0.2s; }
+    .work-nav a:hover { color: var(--black); }
+    .work-nav .works-link { color: var(--black); }
+
+    /* ── FOOTER (light) ── */
+    .footer { background: var(--white); }
+    .footer-brand-name { color: var(--black); }
+    .footer-contact h3 { color: var(--black); }
+    .footer-pages h3 { color: var(--black); }
+    .footer-socials svg { fill: var(--black); }
+    .footer-pages a { color: var(--grey); }
+    .footer-copy { color: #aaa; }
+
+    @media (max-width: 768px) {
+      .context-row { grid-template-columns: 1fr; }
+      .hero-title { font-size: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- STICKY NAV (overlays hero; turns solid white on scroll) -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/logo-white.png" alt="Ruby Dahl Design" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="work.html">Works</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- FULL-BLEED HERO -->
+  <header class="hero">
+    <img class="hero-bg" src="assets/pholish/hero.png" alt="The Pholish food truck" />
+    <div class="hero-scrim"></div>
+    <h1 class="hero-title">Pholish&rsquo;</h1>
+  </header>
+
+  <!-- INTRO -->
+  <div class="intro">
+    <div class="meta-row">
+      <div class="meta-item">
+        <p class="meta-label">Project</p>
+        <p class="meta-value">Brand Identity</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-label">Medium</p>
+        <p class="meta-value">Adobe Illustrator</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-label">Year</p>
+        <p class="meta-value">2023</p>
+      </div>
+    </div>
+    <div class="intro-body">
+      <p>This project was completed for a graphic design course, where we were tasked with creating a full brand identity for an original concept. The assignment required developing a logo suite, brand identity, posters, and various mockups, with each collateral piece relating directly to the nature of the brand.</p>
+      <p>I developed &lsquo;Pholish&rsquo;, a Vietnamese Tex/Mex fusion food truck that blends flavours from both cuisines to create unique and exciting dishes. The collateral was designed around the idea of items used to carry and serve food, reflecting the practical, on-the-go nature of a food truck. Although the physical items were not produced, the project focused on learning how to effectively present designs using mockups and branding applications.</p>
+    </div>
+  </div>
+
+  <!-- MOODBOARD -->
+  <div class="section">
+    <div class="img-full">
+      <img src="assets/pholish/moodboard.png" alt="Pholish moodboard" />
+    </div>
+    <p class="section-label">Moodboard</p>
+  </div>
+
+  <!-- INTRO QUOTE -->
+  <div class="quote">
+    <p>&ldquo;I am excited to introduce Pholish, a Vietnamese Tex/Mex fusion food truck that combines the flavours of two incredible cuisines into one delicious experience.&rdquo;</p>
+    <p>&ldquo;Our menu features dishes such as banh mi tacos, pho burritos, birria pho and traditional tamales. We use fresh, high-quality ingredients to create unique flavour combinations that will tantalise your taste buds. Our goal is to provide an unforgettable dining experience that will leave you craving more. Come and join us for a culinary adventure unlike any other!&rdquo;</p>
+  </div>
+
+  <!-- LOGO SUITE -->
+  <div class="section">
+    <div class="img-full">
+      <img src="assets/pholish/logo-suite.png" alt="Pholish logo suite" />
+    </div>
+    <p class="section-label">Logo suite</p>
+  </div>
+
+  <!-- DESIGN IN CONTEXT -->
+  <h2 class="context-heading">Design in Context</h2>
+  <div class="context-full">
+    <img src="assets/pholish/context-1.png" alt="Pholish branded cups" />
+  </div>
+  <div class="context-row">
+    <div class="tile"><img src="assets/pholish/context-2.png" alt="Pholish packaging mockup" /></div>
+    <div class="tile"><img src="assets/pholish/context-3.png" alt="Pholish tub mockup" /></div>
+  </div>
+  <div class="context-row">
+    <div class="tile"><img src="assets/pholish/context-4.png" alt="Pholish paper bag mockup" /></div>
+    <div class="tile"><img src="assets/pholish/context-5.png" alt="Pholish hanging sign mockup" /></div>
+  </div>
+  <div class="context-row">
+    <div class="tile"><img src="assets/pholish/context-6.png" alt="Pholish menu board mockup" /></div>
+    <div class="tile"><img src="assets/pholish/context-7.png" alt="Pholish takeout box mockup" /></div>
+  </div>
+
+  <!-- PREV / NEXT -->
+ <div class="work-nav">
+    <a href="work-one-click.html">← Previous</a>
+    <a href="work.html" class="works-link">Works</a>
+    <a href="work-emotorise.html">Next →</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-brand">
+      <div class="footer-brand-icon">
+        <img src="assets/logo-black.png" alt="Ruby Dahl" />
+      </div>
+      <span class="footer-brand-name">Ruby<br>Dahl</span>
+    </div>
+    <div class="footer-contact">
+      <h3>Get In Contact</h3>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/_ruby.des1gn" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a href="mailto:ruby.dahl@optusnet.com.au" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+        <a href="https://www.linkedin.com/in/ruby-dahl-a9a1a127b/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-pages">
+      <h3>Pages</h3>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="work.html">Works</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <p class="footer-copy">Ruby Dahl Design 2026</p>
+  </footer>
+
+  <script>
+  (function(){
+    var nav = document.getElementById('nav');
+    if(!nav) return;
+    var hero = document.querySelector('.hero');
+    var threshold = 300;
+    function calc(){ threshold = (hero ? hero.offsetHeight : 360) - 64; }
+    function onScroll(){
+      if(window.scrollY > threshold) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    }
+    calc(); onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', function(){ calc(); onScroll(); });
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ANU Inspace — Ruby Dahl Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fustat:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    body { background: var(--black); color: var(--white); }
+
+    .nav { background: var(--black); position: sticky; }
+    .nav-logo img { height: 55px; width: 46px; object-fit: contain; }
+    .nav-links a { color: var(--white); border-color: var(--white); }
+    .nav-links a:hover { background: var(--white); color: var(--black); }
+
+    /* ── MOON STRIP ── */
+    .moon-strip { width: 100%; line-height: 0; }
+    .moon-strip img { width: 100%; height: auto; display: block; }
+
+    /* ── HERO ── */
+    .hero { padding: 3rem var(--pad) 4rem; }
+    .hero h1 {
+      font-size: clamp(60px, 7vw, 120px);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      margin-bottom: 2rem;
+    }
+    .hero-body { font-size: clamp(16px, 1.4vw, 22px); line-height: 1.7; color: #c8c8c8; max-width: 900px; margin-bottom: 2.5rem; }
+    .hero-body p { margin-bottom: 1em; }
+    .hero-body p:last-child { margin-bottom: 0; }
+
+    /* ── BUTTONS ── */
+    .btn-row { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    .btn {
+      font-family: var(--font);
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      border: 2px solid var(--white);
+      padding: 0.85rem 2rem;
+      background: transparent;
+      color: var(--white);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      display: inline-block;
+    }
+    .btn:hover { background: var(--white); color: var(--black); }
+
+    /* ── SECTIONS — no borders ── */
+    .section { padding: 3rem var(--pad); }
+    .section-label {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-top: 0.75rem;
+    }
+
+    /* ── FULL WIDTH IMAGE ── */
+    .img-full { width: 100%; line-height: 0; margin-bottom: 0.75rem; }
+    .img-full img { width: 100%; height: auto; display: block; }
+
+    /* ── HALF WIDTH IMAGE — justified left or right ── */
+    .img-half-left  { width: 55%; margin-right: auto; line-height: 0; margin-bottom: 0.75rem; }
+    .img-half-right { width: 55%; margin-left: auto;  line-height: 0; margin-bottom: 0.75rem; }
+    .img-half-left img, .img-half-right img { width: 100%; height: auto; display: block; }
+
+    /* ── POSTERS GRID ── */
+    .posters-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 0.75rem;
+    }
+    .poster-tile { overflow: hidden; line-height: 0; }
+    .poster-tile img { width: 100%; height: auto; display: block; }
+
+    /* ── COLLATERAL GRID ── */
+    .collateral-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 0.75rem;
+    }
+    .collateral-tile { overflow: hidden; line-height: 0; }
+    .collateral-tile img { width: 100%; height: auto; display: block; }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote { padding: 4rem var(--pad); }
+    .pull-quote-label {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-bottom: 1.5rem;
+    }
+    .pull-quote p { font-size: 18px; line-height: 1.8; color: #c8c8c8; max-width: 75ch; margin-bottom: 1.25rem; }
+    .pull-quote p:last-child { margin-bottom: 0; }
+
+    /* ── PREV/NEXT ── */
+    .work-nav { padding: 1.5rem var(--pad); display: flex; justify-content: space-between; align-items: center; }
+    .work-nav a { font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey); transition: color 0.2s; }
+    .work-nav a:hover { color: var(--white); }
+    .work-nav .works-link { color: var(--white); }
+
+    /* ── FOOTER ── */
+    .footer { background: var(--black); }
+    .footer-brand-name { color: var(--white); }
+    .footer-contact h3 { color: var(--white); }
+    .footer-pages h3 { color: var(--white); }
+    .footer-socials svg { fill: var(--white); }
+    .footer-pages a { color: var(--grey); }
+    .footer-copy { color: #444; }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 60px; }
+      .posters-grid { grid-template-columns: 1fr; }
+      .collateral-grid { grid-template-columns: 1fr; }
+      .img-half-left, .img-half-right { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/logo-white.png" alt="Ruby Dahl Design" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="work.html">Works</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- MOON STRIP -->
+  <div class="moon-strip">
+    <img src="assets/moon-strip.png" alt="Moon phases" />
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>ANU Inspace</h1>
+    <div class="meta-row">
+      <div class="meta-item">
+        <p class="meta-label">Project</p>
+        <p class="meta-value">Foundations of Creative Code (ANU)</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-label">Medium</p>
+        <p class="meta-value">P5.js and Adobe Illustrator</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-label">Year</p>
+        <p class="meta-value">2025</p>
+      </div>
+    </div>
+    <div class="hero-body">
+      <p>This assignment was completed for a creative coding class. We were assigned to re-design an existing brand identity using code as our tool to make the new design dynamic. My Design focused on the ANU Institute of Space, rebranding the institute to closer fit with space iconography while under the ANU style guidelines. Each motif was designed by myself then used in a collateral generator to produce multiple artefacts.</p>
+    </div>
+    <div class="btn-row">
+      <a href="https://editor.p5js.org/Rubae/full/oGo4-UGsp" target="_blank" rel="noopener" class="btn">Poster Generator</a>
+      <a href="https://editor.p5js.org/Rubae/full/zcsPYkjjJ" target="_blank" rel="noopener" class="btn">Collateral Generator</a>
+    </div>
+  </div>
+
+  <!-- LOGO SUITE -->
+  <div class="section">
+    <div class="img-full">
+      <img src="assets/anu-inspace/logo-suite.png" alt="ANU Inspace Logo Suite" />
+    </div>
+    <p class="section-label">Logo Suite</p>
+  </div>
+
+  <!-- BUSINESS CARDS -->
+  <div class="section">
+    <div class="img-full">
+      <img src="assets/anu-inspace/business-cards.png" alt="Business Cards using Collateral Generator" />
+    </div>
+    <p class="section-label">Business Cards using Collateral Generator</p>
+  </div>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote">
+    <p class="pull-quote-label">An excerpt from my finished assignment description:</p>
+    <p>"A distinctive dynamic design element within the system is the moon phase, reimagined as a symbol/motif that adds both temporal and thematic depth to each branded piece. Through the integration of a real-time moon cycle API, the system reflects the current lunar phase at the moment a design is generated (whether it's a business card, event banner, or annual report)."</p>
+    <p>Rather than influencing the colour palette, the moon functions as a subtle visual timestamp or signature. It marks the moment someone joins the organisation, the timing of an event, or the lunar phase during the release of a publication such as an annual report. This introduces a poetic link between brand identity and the cosmos.</p>
+    <p>Each piece created under the Inspace brand becomes part of a broader celestial cycle. By embedding lunar data into the identity system, the result is more than just a visual motif, it becomes a cosmic timestamp, anchoring every communication in time and space.</p>
+  </div>
+
+  <!-- LANYARDS — right justified, 55% width -->
+  <div class="section">
+    <div class="img-half-right">
+      <img src="assets/anu-inspace/lanyards.png" alt="Company Lanyards" />
+    </div>
+    <p class="section-label">Company Lanyards</p>
+  </div>
+
+  <!-- ADVERTISEMENT POSTERS -->
+  <div class="section">
+    <div class="posters-grid">
+      <div class="poster-tile"><img src="assets/anu-inspace/poster-1.png" alt="Poster 1" /></div>
+      <div class="poster-tile"><img src="assets/anu-inspace/poster-2.png" alt="Poster 2" /></div>
+      <div class="poster-tile"><img src="assets/anu-inspace/poster-3.png" alt="Poster 3" /></div>
+    </div>
+    <p class="section-label">Advertisement Poster using the Collateral Generator</p>
+  </div>
+
+  <!-- EXTRA COLLATERAL -->
+  <div class="section">
+    <div class="collateral-grid">
+      <div class="collateral-tile"><img src="assets/anu-inspace/collateral-1.png" alt="" /></div>
+      <div class="collateral-tile"><img src="assets/anu-inspace/collateral-2.png" alt="" /></div>
+      <div class="collateral-tile"><img src="assets/anu-inspace/collateral-3.png" alt="" /></div>
+      <div class="collateral-tile"><img src="assets/anu-inspace/collateral-4.png" alt="" /></div>
+      <div class="collateral-tile"><img src="assets/anu-inspace/collateral-5.png" alt="" /></div>
+      <div class="collateral-tile"><img src="assets/anu-inspace/collateral-6.png" alt="" /></div>
+    </div>
+    <p class="section-label">Extra Collateral using generator</p>
+  </div>
+
+  <!-- PREV / NEXT -->
+  <div class="work-nav">
+    <a href="work-majura-wine.html">← Previous</a>
+    <a href="work.html" class="works-link">Works</a>
+    <a href="work-type-experiments.html">Next →</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-brand">
+      <div class="footer-brand-icon">
+        <img src="assets/logo-white.png" alt="Ruby Dahl" />
+      </div>
+      <span class="footer-brand-name">Ruby<br>Dahl</span>
+    </div>
+    <div class="footer-contact">
+      <h3>Get In Contact</h3>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/_ruby.des1gn" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a href="mailto:ruby.dahl@optusnet.com.au" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+        <a href="https://www.linkedin.com/in/ruby-dahl-a9a1a127b/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-pages">
+      <h3>Pages</h3>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="work.html">Works</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <p class="footer-copy">Ruby Dahl Design 2026</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emotorise — Ruby Dahl Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fustat:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+
+  <!-- =========================================================
+       IMAGES — drop these into  assets/emotorise/  :
+         pattern.png         hero band pattern
+         sketch-1.png        original hand-drawn sketch (left)
+         sketch-2.png        original hand-drawn sketch (right)
+         specimen-angular.png   "Basic Angular" specimen (left)
+         specimen-rounded.png   "Basic Rounded" specimen (right)
+         mockup-poster.png   poster sit-in mockup
+         mockup-digital.png  Adobe Fonts / digital mockup
+         mockup-zine1.png … mockup-zine4.png   zine photo mockups (2×2 grid)
+         mockup-zine5.png    mockup of the zine poster (sits beside zine-poster.png)
+         zine-poster.png     zine poster (my design)
+         artefact-1.png … artefact-3.png   promotional posters (team)
+
+       SUBMITTED SPECIMEN (book viewer) — drop into  assets/emotorise/specimen/  :
+         page-01.jpg … page-22.jpg          rasterised booklet pages
+       And the original PDF for the "Open full PDF" link, into assets/emotorise/ :
+         emotorise-specimen.pdf
+       ========================================================= -->
+
+  <style>
+    :root { --pink: #D4537E; }
+
+    body { background: var(--black); color: var(--white); }
+    .nav { background: var(--black); }
+    .nav-logo img { height: 55px; width: 46px; object-fit: contain; }
+    .nav-links a { color: var(--white); border-color: var(--white); }
+    .nav-links a:hover { background: var(--white); color: var(--black); }
+
+    /* HERO PATTERN BAND (replaces the OCR hero canvas) */
+    .hero-pattern { width: 100%; height: clamp(180px, 26vw, 300px); overflow: hidden; line-height: 0; background: #4a4566; }
+    .hero-pattern img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* HERO */
+    .hero { padding: 3rem var(--pad) 2.5rem; }
+    .hero h1 { font-size: clamp(60px, 7vw, 120px); font-weight: 800; line-height: 1; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .hero-body { font-size: clamp(15px, 1.3vw, 20px); line-height: 1.75; color: #c8c8c8; max-width: 860px; margin-top: 0.5rem; }
+    .hero-body p { margin-bottom: 1em; }
+    .hero-body p:last-child { margin-bottom: 0; }
+    .meta-label.role { color: var(--pink); }
+
+    /* SECTIONS */
+    .section { padding: 4rem var(--pad); }
+    .section-label { font-size: clamp(11px, 0.9vw, 13px); font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grey); margin-bottom: 2rem; display: block; }
+    .caption { font-size: clamp(11px, 0.9vw, 13px); color: var(--grey); letter-spacing: 0.05em; margin-top: 0.75rem; line-height: 1.5; }
+
+    /* MY ROLE */
+    .role-block { border-left: 3px solid var(--pink); padding-left: 1.75rem; }
+    .role-list li { font-size: clamp(14px, 1.1vw, 17px); line-height: 1.5; color: #c8c8c8; padding: 0.65rem 0; border-bottom: 1px solid #2a2a2a; }
+    .role-list li:last-child { border-bottom: none; }
+
+    /* IMAGE LAYOUTS */
+    .img-full { width: 100%; line-height: 0; background: #1a1a1a; }
+    .img-full img { width: 100%; height: auto; display: block; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .cell { line-height: 0; background: #1a1a1a; aspect-ratio: 4 / 5; overflow: hidden; }
+    .cell img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .type-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
+    .type-pair figure { margin: 0; }
+    .type-pair img { width: 100%; height: auto; display: block; background: #1a1a1a; }
+    .type-pair figcaption { font-size: clamp(11px, 0.9vw, 13px); letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey); margin-top: 0.7rem; }
+
+    /* NATURAL-ASPECT IMAGE GRID — no cropping, true dimensions */
+    .imgrid { display: grid; gap: 12px; align-items: start; }
+    .imgrid img { width: 100%; height: auto; display: block; background: #1a1a1a; }
+    .imgrid.two { grid-template-columns: repeat(2, 1fr); }
+    .imgrid.three { grid-template-columns: repeat(3, 1fr); }
+    .mockup-stack { display: flex; flex-direction: column; gap: 12px; }
+    @media (max-width: 700px) { .imgrid.three { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 520px) { .imgrid.two, .imgrid.three { grid-template-columns: 1fr; } }
+
+    /* ZINE POSTER + MOCKUP — equal-height row; widths set from each image's true aspect ratio */
+    .zine-row { display: flex; gap: 16px; align-items: flex-start; }
+    .zine-row > * { flex-grow: 1; flex-basis: 0; min-width: 0; }
+    .zine-row img { width: 100%; height: auto; display: block; background: #1a1a1a; }
+    @media (max-width: 600px) { .zine-row { flex-direction: column; } .zine-row > * { width: 100%; } }
+
+    /* EXCERPT */
+    .excerpt-section { padding: 4rem var(--pad); }
+    .excerpt-label { font-size: clamp(11px, 0.9vw, 13px); font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grey); margin-bottom: 1.5rem; display: block; }
+    .excerpt-text { font-size: clamp(15px, 1.3vw, 20px); line-height: 1.8; color: #c8c8c8; max-width: 80ch; font-style: italic; }
+
+    /* WORK NAV */
+    .work-nav { padding: 1.5rem var(--pad); display: flex; justify-content: space-between; align-items: center; }
+    .work-nav a { font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey); transition: color 0.2s; }
+    .work-nav a:hover { color: var(--white); }
+    .work-nav .works-link { color: var(--white); }
+
+    /* FOOTER */
+    .footer { background: var(--black); }
+    .footer-brand-name { color: var(--white); }
+    .footer-contact h3, .footer-pages h3 { color: var(--white); }
+    .footer-socials svg { fill: var(--white); }
+    .footer-pages a { color: var(--grey); }
+    .footer-copy { color: #444; }
+
+    /* SUBMITTED SPECIMEN — PDF book viewer (cover alone, then two-page spreads) */
+    .tab-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
+    .tab-note { font-size: clamp(11px, 0.9vw, 13px); font-style: italic; color: var(--grey); }
+    .specimen-viewer { display: flex; align-items: center; gap: 0.5rem; justify-content: center; }
+    .spec-stage { display: flex; justify-content: center; align-items: center; flex: 1; min-width: 0; }
+    .spec-book { display: flex; gap: 0; align-items: flex-start; background: #fff; box-shadow: 0 18px 50px rgba(0,0,0,0.55); }
+    .spec-book.single, .spec-book.cover { background: transparent; box-shadow: none; }
+    .spec-page { line-height: 0; font-size: 0; }
+    .spec-page img { display: block; background: #fff; }
+    .spec-book.cover #specRight, .spec-book.single #specLeft { box-shadow: 0 18px 50px rgba(0,0,0,0.55); }
+    .spec-arrow { flex: 0 0 auto; width: 46px; height: 46px; border: 1px solid #444; background: rgba(20,20,20,0.6); color: #fff; font-size: 26px; line-height: 1; cursor: pointer; border-radius: 50%; transition: background .2s, color .2s, border-color .2s, opacity .2s; display: flex; align-items: center; justify-content: center; }
+    .spec-arrow:hover { background: #fff; color: #000; border-color: #fff; }
+    .spec-arrow:disabled { opacity: 0.2; cursor: default; }
+    .spec-controls { display: flex; justify-content: center; align-items: center; gap: 1.5rem; margin-top: 1.5rem; }
+    .spec-counter { font-family: "Courier New", monospace; font-size: 13px; letter-spacing: 0.12em; color: var(--grey); }
+    .spec-download { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey); border-bottom: 1px solid #444; padding-bottom: 3px; transition: color .2s, border-color .2s; }
+    .spec-download:hover { color: #fff; border-color: #fff; }
+    .spec-error { color: #ff5fae; font-family: "Courier New", monospace; font-size: 12px; line-height: 1.7; text-align: center; margin-top: 1.25rem; }
+
+    @media (max-width: 900px) { .grid-3 { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 700px) { .spec-arrow { width: 38px; height: 38px; font-size: 22px; } }
+    @media (max-width: 600px) { .grid-3, .grid-2, .type-pair { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-logo"><img src="assets/logo-white.png" alt="Ruby Dahl Design" /></a>
+    <ul class="nav-links">
+      <li><a href="work.html">Works</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero-pattern"><img src="assets/emotorise/pattern.png" alt="Emotorise grid pattern" /></div>
+
+  <div class="hero">
+    <h1>Emotorise</h1>
+    <div class="meta-row">
+      <div class="meta-item"><p class="meta-label">Project</p><p class="meta-value">Typography in Context (ANU)</p></div>
+      <div class="meta-item"><p class="meta-label">Medium</p><p class="meta-value">Adobe Illustrator</p></div>
+      <div class="meta-item"><p class="meta-label">Year</p><p class="meta-value">2025</p></div>
+      <div class="meta-item"><p class="meta-label role">Role</p><p class="meta-value">Concept, type design, sampler &amp; mockups</p></div>
+    </div>
+    <div class="hero-body">
+      <p>This was a collaborative project to design Emotorise, a display typeface inspired by Japanese typographic systems, Showa-era graphic design, and contemporary pop culture. The brief simulated a real-world type foundry, designing, developing, and marketing a complete typeface system through standard foundry outputs.</p>
+      <p>Emotorise is built on a strict 6&times;6 grid with uniform strokes and deliberate spatial breaks that reference Japanese Jihaba and Tategaki structures. Drawing on kawaii culture and internet emoticons, its modular characters are designed to work as both letters and expressive graphic symbols.</p>
+      <p>The final system spans a full type specimen and promotional material: a functional yet expressive typeface that blends structured grid logic with pop-cultural visual language, positioned within both historical and contemporary typographic contexts.</p>
+    </div>
+  </div>
+
+  <!-- MY ROLE -->
+  <div class="section">
+    <span class="section-label">My Role</span>
+    <div class="role-block">
+      <ul class="role-list">
+        <li>Co-originated the concept: the Japanese-inspired, emoticon-driven direction.</li>
+        <li>Drew every initial sketch and set the grid the letterforms were built on.</li>
+        <li>Ran the weekly feedback loop, redrawing the face into its final 6&times;6 stepped grid.</li>
+        <li>Took the digital build back to spec when it drifted from the approved sketches.</li>
+        <li>Designed the complete type sampler.</li>
+        <li>Produced all visual mockups: poster sit-ins, digital, and zines.</li>
+        <li>Wrote and designed the final rationale solo.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ORIGINAL DRAWINGS -->
+  <div class="section">
+    <span class="section-label">Original Drawings</span>
+    <div class="type-pair">
+      <figure><img src="assets/emotorise/sketch-1.png" alt="Original hand-drawn Emotorise sketch" /></figure>
+      <figure><img src="assets/emotorise/sketch-2.png" alt="Original hand-drawn Emotorise sketch" /></figure>
+    </div>
+    <p class="caption">My original hand-drawn sketches, where the letterforms were first mapped onto the grid.</p>
+  </div>
+
+  <!-- TYPE SPECIMEN -->
+  <div class="section">
+    <span class="section-label">The Typeface</span>
+    <div class="type-pair">
+      <figure><img src="assets/emotorise/specimen-angular.png" alt="Emotorise Basic Angular specimen" /><figcaption>Basic Angular</figcaption></figure>
+      <figure><img src="assets/emotorise/specimen-rounded.png" alt="Emotorise Basic Rounded specimen" /><figcaption>Basic Rounded</figcaption></figure>
+    </div>
+    <p class="caption">Two styles built on the same 6&times;6 grid: a crisp angular cut and a softer rounded one.</p>
+  </div>
+
+  <!-- SUBMITTED SPECIMEN (PDF book viewer) -->
+  <div class="section">
+    <div class="tab-header">
+      <span class="section-label" style="margin-bottom:0;">Submitted Specimen</span>
+      <span class="tab-note">Navigate pages using the controls below</span>
+    </div>
+    <div class="specimen-viewer" id="specimenViewer">
+      <button class="spec-arrow" id="specPrev" aria-label="Previous spread">&#8249;</button>
+      <div class="spec-stage" id="specStage">
+        <div class="spec-book" id="specBook">
+          <div class="spec-page" id="specLeftWrap"><img id="specLeft" alt="" /></div>
+          <div class="spec-page" id="specRightWrap"><img id="specRight" alt="" /></div>
+        </div>
+      </div>
+      <button class="spec-arrow" id="specNext" aria-label="Next spread">&#8250;</button>
+    </div>
+    <div class="spec-controls">
+      <span class="spec-counter" id="specCounter">1 / 12</span>
+      <a class="spec-download" href="assets/emotorise/emotorise-specimen.pdf" target="_blank" rel="noopener">Open full PDF &#8599;</a>
+    </div>
+    <p class="spec-error" id="specError" hidden></p>
+    <p class="caption">The full submitted specimen booklet. The type sampler and all mockups inside are my work; the rationale was written by me.</p>
+  </div>
+
+  <!-- VISUAL MOCKUPS -->
+  <div class="section">
+    <span class="section-label">Visual Mockups</span>
+    <div class="mockup-stack">
+      <div class="imgrid two">
+        <img src="assets/emotorise/mockup-poster.png" alt="Poster mockup" />
+        <img src="assets/emotorise/mockup-digital.png" alt="Digital / Adobe Fonts mockup" />
+      </div>
+      <div class="imgrid two">
+        <img src="assets/emotorise/mockup-zine1.png" alt="Zine mockup" />
+        <img src="assets/emotorise/mockup-zine2.png" alt="Zine mockup" />
+        <img src="assets/emotorise/mockup-zine3.png" alt="Zine mockup" />
+        <img src="assets/emotorise/mockup-zine4.png" alt="Zine mockup" />
+      </div>
+    </div>
+    <p class="caption">Poster sit-ins, the Adobe Fonts listing and the zine, all mocked up by me.</p>
+  </div>
+
+  <!-- ZINE POSTER + MOCKUP (my design) -->
+  <div class="section">
+    <span class="section-label">Zine Poster</span>
+    <div class="zine-row">
+      <div class="zine-poster"><img src="assets/emotorise/zine-poster.png" alt="Emotorise zine poster designed by Ruby Dahl" /></div>
+      <div class="zine-mock"><img src="assets/emotorise/mockup-zine5.png" alt="Zine poster mockup" /></div>
+    </div>
+    <p class="caption">The zine poster I designed, shown flat (left) and mocked up (right).</p>
+  </div>
+
+  <!-- ASSIGNMENT EXCERPT -->
+  <div class="excerpt-section">
+    <span class="excerpt-label">An excerpt from my finished assignment description:</span>
+    <p class="excerpt-text">&ldquo;Type was often used as form. Connotation took priority over denotation, with the overall visual aesthetic being more important than the actual legibility.&rdquo;</p>
+  </div>
+
+  <!-- ARTEFACTS / POSTERS (team) -->
+  <div class="section">
+    <span class="section-label">Artefacts &amp; Posters</span>
+    <div class="imgrid three">
+      <img src="assets/emotorise/artefact-1.png" alt="Artefact 1" />
+      <img src="assets/emotorise/artefact-2.png" alt="Artefact 2" />
+      <img src="assets/emotorise/artefact-3.png" alt="Artefact 3" />
+    </div>
+    <p class="caption">Promotional posters produced by the team.</p>
+  </div>
+
+  <div class="work-nav">
+    <a href="work-pholish.html">&larr; Previous</a>
+    <a href="work.html" class="works-link">Works</a>
+    <span></span>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-brand">
+      <div class="footer-brand-icon"><img src="assets/logo-white.png" alt="" /></div>
+      <span class="footer-brand-name">Ruby<br>Dahl</span>
+    </div>
+    <div class="footer-contact">
+      <h3>Get In Contact</h3>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/_ruby.des1gn" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a href="mailto:ruby.dahl@optusnet.com.au" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+        <a href="https://www.linkedin.com/in/ruby-dahl-a9a1a127b/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-pages">
+      <h3>Pages</h3>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="work.html">Works</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <p class="footer-copy">Ruby Dahl Design 2026</p>
+  </footer>
+  <script>
+  // Emotorise submitted-specimen viewer — cover alone on the right, then flush two-page spreads
+  (function(){
+    var PAGES = 22;
+    var ASPECT = 1654 / 2339;            // page width / height (A4 portrait)
+    var base = 'assets/emotorise/specimen/page-';
+    var stage = document.getElementById('specStage');
+    if(!stage) return;
+    var book = document.getElementById('specBook');
+    var left = document.getElementById('specLeft');
+    var right = document.getElementById('specRight');
+    var leftWrap = document.getElementById('specLeftWrap');
+    var rightWrap = document.getElementById('specRightWrap');
+    var prev = document.getElementById('specPrev');
+    var next = document.getElementById('specNext');
+    var counter = document.getElementById('specCounter');
+    var viewer = document.getElementById('specimenViewer');
+    var errEl = document.getElementById('specError');
+    var inView = true;
+
+    function showError(path){
+      if(!errEl) return;
+      errEl.hidden = false;
+      errEl.textContent = 'Couldn\u2019t load ' + path + ' — the file must sit at exactly that path (note the "specimen" subfolder and lower-case .jpg).';
+    }
+    function hideError(){ if(errEl) errEl.hidden = true; }
+
+    function src(n){ return base + (n < 10 ? ('0' + n) : ('' + n)) + '.jpg'; }
+    var mode = window.innerWidth > 700;  // true = book spreads, false = single page (mobile)
+    var view = 0;
+
+    function totalViews(){ return mode ? (1 + Math.ceil((PAGES - 1) / 2)) : PAGES; }
+    function pagesFor(v){
+      if(!mode) return [v + 1, null];
+      if(v === 0) return [null, 1];               // cover alone, on the right
+      var l = 2 * v, r = 2 * v + 1;
+      return [l <= PAGES ? l : null, r <= PAGES ? r : null];
+    }
+    function dims(perTwo){
+      var maxH = Math.min(window.innerHeight * 0.80, 820);
+      var avail = stage.clientWidth;
+      if(!avail || avail < 60) avail = Math.min(window.innerWidth - 140, 1100);
+      var maxW = perTwo ? Math.floor(avail / 2) : avail;
+      var w = Math.min(maxW, maxH * ASPECT);
+      return { w: Math.round(w), h: Math.round(w / ASPECT) };
+    }
+    function showImg(img, wrap, n, w, h){
+      img.onload = function(){ hideError(); };
+      img.onerror = function(){ showError(src(n)); };
+      img.src = src(n); img.alt = 'Specimen page ' + n;
+      img.style.display = ''; img.style.width = w + 'px'; img.style.height = h + 'px';
+      wrap.style.display = ''; wrap.style.width = ''; wrap.style.height = '';
+    }
+    function hide(img, wrap){ img.removeAttribute('src'); img.style.display = 'none'; wrap.style.display = 'none'; }
+
+    function render(){
+      if(view < 0) view = 0;
+      if(view > totalViews() - 1) view = totalViews() - 1;
+      var pr = pagesFor(view), L = pr[0], R = pr[1];
+      var single = !(L && R);
+      var cover = mode && view === 0;
+      book.classList.toggle('cover', cover);
+      book.classList.toggle('single', single && !cover);
+
+      if(cover){
+        var d = dims(true);
+        hide(left, leftWrap);                       // empty left half pushes the cover to the right
+        leftWrap.style.display = ''; leftWrap.style.width = d.w + 'px'; leftWrap.style.height = d.h + 'px';
+        showImg(right, rightWrap, R, d.w, d.h);
+      } else if(single){
+        var d1 = dims(false);
+        showImg(left, leftWrap, L || R, d1.w, d1.h);
+        hide(right, rightWrap);
+      } else {
+        var d2 = dims(true);
+        showImg(left, leftWrap, L, d2.w, d2.h);
+        showImg(right, rightWrap, R, d2.w, d2.h);
+      }
+      counter.textContent = (view + 1) + ' / ' + totalViews();
+      prev.disabled = view <= 0;
+      next.disabled = view >= totalViews() - 1;
+      [view - 1, view + 1].forEach(function(vv){ if(vv >= 0 && vv < totalViews()){ var pp = pagesFor(vv); [pp[0], pp[1]].forEach(function(n){ if(n){ var im = new Image(); im.src = src(n); } }); } });
+    }
+    function go(d){ view += d; render(); }
+    prev.addEventListener('click', function(){ go(-1); });
+    next.addEventListener('click', function(){ go(1); });
+    document.addEventListener('keydown', function(e){
+      if(!inView) return;
+      if(e.key === 'ArrowLeft') go(-1);
+      else if(e.key === 'ArrowRight') go(1);
+    });
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){ es.forEach(function(e){ inView = e.isIntersecting; }); }, { threshold: 0.15 }).observe(viewer);
+    }
+    var rt;
+    window.addEventListener('resize', function(){
+      clearTimeout(rt);
+      rt = setTimeout(function(){
+        var nm = window.innerWidth > 700;
+        if(nm !== mode){
+          var pr = pagesFor(view), ref = pr[1] || pr[0] || 1;
+          mode = nm;
+          view = mode ? (ref <= 1 ? 0 : Math.floor(ref / 2)) : (ref - 1);
+        }
+        render();
+      }, 150);
+    });
+    render();
+  })();
+  </script>
+
+  <script>
+  // Zine row: equal heights by setting each item's flex-grow to its image's true aspect ratio
+  (function(){
+    var imgs = document.querySelectorAll('.zine-row img');
+    Array.prototype.forEach.call(imgs, function(img){
+      function set(){ if(img.naturalWidth && img.naturalHeight){ img.parentElement.style.flexGrow = (img.naturalWidth / img.naturalHeight).toFixed(4); } }
+      if(img.complete) set();
+      img.addEventListener('load', set);
+    });
+  })();
+  </script>
+
+</body>
+</html>
