@@ -111,14 +111,14 @@
     .ocr-result-text.machine { }
     .ocr-highlight { background: #f3e54e; color: #c0392b; font-style: normal; padding: 0 3px; }
 
-    /* ACRYLIC CMYK — 748:558 left, text + 318:547 right */
-    .acrylic-grid { display: grid; grid-template-columns: 748fr 318fr; gap: 2rem; align-items: start; }
-    .acrylic-left { line-height: 0; }
-    .acrylic-left img { width: 100%; height: auto; display: block; }
-    .acrylic-right { display: flex; flex-direction: column; gap: 1.5rem; }
-    .acrylic-text { font-size: clamp(14px, 1.2vw, 18px); line-height: 1.75; color: #c8c8c8; }
-    .acrylic-small { line-height: 0; }
-    .acrylic-small img { width: 100%; height: auto; display: block; }
+    /* ACRYLIC CMYK — left close-up + right (text over enlarged flat-lay), both flush at bottom */
+    .acrylic-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: stretch; }
+    .acrylic-left { aspect-ratio: 748 / 558; line-height: 0; overflow: hidden; }
+    .acrylic-left img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .acrylic-right { display: flex; flex-direction: column; min-height: 0; }
+    .acrylic-text { font-size: clamp(14px, 1.2vw, 18px); line-height: 1.75; color: #c8c8c8; margin-bottom: 1.5rem; }
+    .acrylic-small { margin-top: auto; flex: 1 1 0; min-height: 0; line-height: 0; overflow: hidden; }
+    .acrylic-small img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
     /* EXHIBITION — 2x2 grid, 669:446 each */
     .exhibition-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -151,6 +151,12 @@
       .stages-grid { grid-template-columns: 1fr 1fr 1fr; }
       .lp-grid, .acrylic-grid, .ocr-reads-inner { grid-template-columns: 1fr; }
       .exhibition-grid { grid-template-columns: 1fr; }
+      .acrylic-left { aspect-ratio: auto; }
+      .acrylic-left img { height: auto; }
+      .acrylic-right { display: block; }
+      .acrylic-text { margin-bottom: 1.5rem; }
+      .acrylic-small { margin-top: 0; }
+      .acrylic-small img { height: auto; }
     }
     @media (max-width: 600px) {
       .stages-grid { grid-template-columns: 1fr; }
