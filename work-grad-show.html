@@ -67,6 +67,7 @@
     /* ── FULL WIDTH IMAGE ── */
     .img-full { width: 100%; line-height: 0; margin-bottom: 0.75rem; }
     .img-full img { width: 100%; height: auto; display: block; }
+    .img-full.logo-suite-cap { max-width: 760px; margin-left: auto; margin-right: auto; }
     .img-full .img-ph {
       width: 100%;
       background: #f0f0f0;
@@ -78,11 +79,13 @@
     .poster-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-bottom: 0.75rem;
+      gap: 28px;
+      max-width: 800px;
+      margin: 0 auto 0.75rem;
+      align-items: start;
     }
-    .poster-tile { aspect-ratio: 3/4; overflow: hidden; line-height: 0; }
-    .poster-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .poster-tile { overflow: hidden; line-height: 0; }
+    .poster-tile img { width: 100%; height: auto; display: block; }
     .poster-tile .img-ph {
       width: 100%; height: 100%;
       display: flex; align-items: center; justify-content: center;
@@ -94,7 +97,7 @@
     .poster-tile.orange { background: #e8a020; }
 
     /* ── WEBSITE SCREENSHOTS ── */
-    .screenshots { display: flex; flex-direction: column; gap: 8px; margin-bottom: 0.75rem; }
+    .screenshots { display: flex; flex-direction: column; gap: 8px; max-width: 700px; margin: 0 auto 0.75rem; }
     .screenshot-row { width: 100%; overflow: hidden; line-height: 0; }
     .screenshot-row img { width: 100%; height: auto; display: block; }
     .screenshot-row .img-ph {
@@ -120,11 +123,7 @@
     .footer-copy { color: #bbb; }
 
     @media (max-width: 768px) {
-      .hero-logos { grid-template-columns: 1fr 1fr; }
       .poster-grid { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 500px) {
-      .hero-logos { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -190,7 +189,7 @@
 
   <!-- LOGO SUITE -->
   <div class="section">
-    <div class="img-full">
+    <div class="img-full logo-suite-cap">
        <img src="assets/grad-show/logo-suite.png" alt="Logo Suite"> 
      
     </div>
