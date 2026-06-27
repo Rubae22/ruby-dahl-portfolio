@@ -9,7 +9,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Fustat:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="shared.css" />
   <style>
+    :root { --pink: #D4537E; }
+
     body { background: var(--black); color: var(--white); }
+
+    .meta-label.role { color: var(--pink); }
 
     .nav { background: var(--black); position: sticky; }
     .nav-logo img { height: 55px; width: 46px; object-fit: contain; }
@@ -103,6 +107,20 @@
     .pull-quote p { font-size: 18px; line-height: 1.8; color: #c8c8c8; max-width: 75ch; margin-bottom: 1.25rem; }
     .pull-quote p:last-child { margin-bottom: 0; }
 
+    /* ── MY ROLE ── */
+    .role-heading {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-bottom: 1.5rem;
+    }
+    .role-block { border-left: 3px solid var(--pink); padding-left: 1.75rem; }
+    .role-list { list-style: none; margin: 0; padding: 0; }
+    .role-list li { font-size: clamp(14px, 1.1vw, 17px); line-height: 1.5; color: #c8c8c8; padding: 0.65rem 0; border-bottom: 1px solid #2a2a2a; }
+    .role-list li:last-child { border-bottom: none; }
+
     /* ── PREV/NEXT ── */
     .work-nav { padding: 1.5rem var(--pad); display: flex; justify-content: space-between; align-items: center; }
     .work-nav a { font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey); transition: color 0.2s; }
@@ -159,6 +177,10 @@
         <p class="meta-label">Year</p>
         <p class="meta-value">2025</p>
       </div>
+      <div class="meta-item">
+        <p class="meta-label role">Role</p>
+        <p class="meta-value">Concept, design, artwork &amp; some code</p>
+      </div>
     </div>
     <div class="hero-body">
       <p>This assignment was completed for a creative coding class. We were assigned to re-design an existing brand identity using code as our tool to make the new design dynamic. My Design focused on the ANU Institute of Space, rebranding the institute to closer fit with space iconography while under the ANU style guidelines. Each motif was designed by myself then used in a collateral generator to produce multiple artefacts.</p>
@@ -166,6 +188,21 @@
     <div class="btn-row">
       <a href="https://editor.p5js.org/Rubae/full/oGo4-UGsp" target="_blank" rel="noopener" class="btn">Poster Generator</a>
       <a href="https://editor.p5js.org/Rubae/full/zcsPYkjjJ" target="_blank" rel="noopener" class="btn">Collateral Generator</a>
+    </div>
+  </div>
+
+  <!-- MY ROLE -->
+  <div class="section">
+    <p class="role-heading">My Role</p>
+    <div class="role-block">
+      <ul class="role-list">
+        <li>Led the concept and the story behind the rebrand.</li>
+        <li>Came up with the idea for the poster and collateral generators.</li>
+        <li>Designed every motif the generators draw from, including the stars, wishes and moon.</li>
+        <li>Designed the full logo suite.</li>
+        <li>Made all the mockups and collateral shown on this page.</li>
+        <li>Helped with some of the coding, while my teammate built most of the generators.</li>
+      </ul>
     </div>
   </div>
 
