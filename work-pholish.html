@@ -51,6 +51,12 @@
     }
     .img-full { width: 100%; max-width: 900px; margin: 0 auto; line-height: 0; }
     .img-full img { width: 100%; height: auto; display: block; }
+    .img-full.logo-cap { max-width: 760px; }
+
+    /* ── SKETCHES ── */
+    .sketches-grid { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .sketches-grid img { width: 100%; height: auto; display: block; background: #f0f0f0; }
+    .sketches-label { max-width: 900px; margin-left: auto; margin-right: auto; }
 
     /* ── INTRO QUOTE ── */
     .quote { background: #1f8a7a; padding: clamp(2.5rem, 6vh, 4.5rem) var(--pad); }
@@ -67,7 +73,7 @@
 
     /* ── PREV / NEXT ── */
     .work-nav {
-      margin: 4rem var(--pad) 0; padding: 1.5rem 2rem; border: 1px solid #e0e0e0;
+      padding: 1.5rem var(--pad);
       display: flex; justify-content: space-between; align-items: center;
     }
     .work-nav a { font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey); transition: color 0.2s; }
@@ -85,6 +91,7 @@
 
     @media (max-width: 768px) {
       .context-row { grid-template-columns: 1fr; }
+      .sketches-grid { grid-template-columns: 1fr; }
       .hero-title { font-size: 40px; }
     }
   </style>
@@ -139,15 +146,33 @@
     <p class="section-label">Moodboard</p>
   </div>
 
+  <!-- SKETCHES (moodboard) -->
+  <div class="section">
+    <div class="sketches-grid">
+      <img src="assets/pholish/sketch-1.png" alt="Pholish concept sketch" />
+      <img src="assets/pholish/sketch-2.png" alt="Pholish concept sketch" />
+    </div>
+    <p class="section-label sketches-label">Sketches</p>
+  </div>
+
   <!-- INTRO QUOTE -->
   <div class="quote">
     <p>&ldquo;I am excited to introduce Pholish, a Vietnamese Tex/Mex fusion food truck that combines the flavours of two incredible cuisines into one delicious experience.&rdquo;</p>
     <p>&ldquo;Our menu features dishes such as banh mi tacos, pho burritos, birria pho and traditional tamales. We use fresh, high-quality ingredients to create unique flavour combinations that will tantalise your taste buds. Our goal is to provide an unforgettable dining experience that will leave you craving more. Come and join us for a culinary adventure unlike any other!&rdquo;</p>
   </div>
 
+  <!-- SKETCHES (brand) -->
+  <div class="section">
+    <div class="sketches-grid">
+      <img src="assets/pholish/sketch-3.png" alt="Pholish brand sketch" />
+      <img src="assets/pholish/sketch-4.png" alt="Pholish brand sketch" />
+    </div>
+    <p class="section-label sketches-label">Sketches</p>
+  </div>
+
   <!-- LOGO SUITE -->
   <div class="section">
-    <div class="img-full">
+    <div class="img-full logo-cap">
       <img src="assets/pholish/logo-suite.png" alt="Pholish logo suite" />
     </div>
     <p class="section-label">Logo suite</p>
