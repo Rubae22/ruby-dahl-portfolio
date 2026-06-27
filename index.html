@@ -57,7 +57,7 @@
       color: var(--white);
       margin-bottom: 1.5rem;
     }
-    .intro-disciplines { display: flex; flex-direction: column; gap: 0.2rem; margin-bottom: 2.5rem; }
+    .intro-disciplines { display: flex; flex-direction: column; gap: 0.2rem; margin-bottom: 2.75rem; }
     .intro-disciplines span {
       font-size: clamp(13px, 1.1vw, 18px);
       font-weight: 400;
@@ -65,14 +65,70 @@
       color: var(--grey);
     }
 
-    /* Body text — fluid from ~18px at small screen to ~24px at wide */
-    .hero-body {
-      font-size: clamp(16px, 1.4vw, 22px);
+    .intro-bio {
+      font-size: clamp(15px, 1.25vw, 19px);
       line-height: 1.7;
       color: #c8c8c8;
+      max-width: 46ch;
+      margin-bottom: 2.75rem;
     }
-    .hero-body p { margin-bottom: 1em; }
-    .hero-body p:last-child { margin-bottom: 0; }
+
+    /* ── SKILLS ── */
+    .skills { margin-top: 0.25rem; }
+    .skills-heading {
+      font-size: clamp(11px, 1vw, 14px);
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+    .skills-group + .skills-group { margin-top: 1.75rem; }
+    .skills-group-label {
+      font-size: clamp(10px, 0.9vw, 12px);
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin: 0 0 0.5rem;
+    }
+    .skill-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid #1c1c1c;
+    }
+    .skill-name {
+      font-size: clamp(14px, 1.15vw, 18px);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      color: var(--white);
+    }
+    .stars {
+      position: relative;
+      display: inline-block;
+      font-size: clamp(15px, 1.25vw, 19px);
+      line-height: 1;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .stars::before {
+      content: "\2605\2605\2605\2605\2605";
+      color: #333;
+    }
+    .stars-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .stars-fill::before {
+      content: "\2605\2605\2605\2605\2605";
+      color: var(--white);
+    }
 
     .intro-image {
       width: 100%;
@@ -180,14 +236,58 @@
       <p class="intro-eyebrow">Portfolio — 2026</p>
       <div class="intro-disciplines">
         <span>Graphic Design</span>
-        <span>Motion &amp; Animation</span>
-        <span>UI / UX</span>
-        <span>Illustration</span>
+        <span>Branding</span>
+        <span>Typography</span>
       </div>
-      <div class="hero-body">
-        <p>I'm a studying graphic designer currently undertaking a Bachelor of Design at the School of Art and Design at the Australian National University (ANU).</p>
-        <p>With a strong passion for graphic design, particularly in branding and typography, I'm interested in how visual identity can communicate meaning, shape perception and create connection. I enjoy the process of building design systems that are both functional and expressive.</p>
-        <p>I am highly proficient in the Adobe Creative Suite, with my main strengths in Illustrator, InDesign, Photoshop and Premiere Pro. I have experience with animation and creative coding using p5.js and C++, as well as skills in 3D modelling and printing. I enjoy experimenting with different mediums and approaches, but always aim for thoughtful design that balances concept with clarity.</p>
+
+      <p class="intro-bio">I'm a graphic designer studying a Bachelor of Design at the ANU School of Art and Design. I'm drawn to branding and typography, and how a visual identity can carry meaning and build a connection. I like building design systems that are both functional and expressive.</p>
+
+      <div class="skills">
+        <p class="skills-heading">Tools &amp; Proficiency</p>
+
+        <div class="skills-group">
+          <p class="skills-group-label">Adobe Creative Suite</p>
+          <div class="skill-row">
+            <span class="skill-name">Illustrator</span>
+            <span class="stars"><span class="stars-fill" style="width:100%"></span></span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">InDesign</span>
+            <span class="stars"><span class="stars-fill" style="width:90%"></span></span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Photoshop</span>
+            <span class="stars"><span class="stars-fill" style="width:70%"></span></span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Premiere Pro</span>
+            <span class="stars"><span class="stars-fill" style="width:90%"></span></span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">After Effects</span>
+            <span class="stars"><span class="stars-fill" style="width:90%"></span></span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Audition</span>
+            <span class="stars"><span class="stars-fill" style="width:60%"></span></span>
+          </div>
+        </div>
+
+        <div class="skills-group">
+          <p class="skills-group-label">Code &amp; Other Tools</p>
+          <div class="skill-row">
+            <span class="skill-name">p5.js</span>
+            <span class="stars"><span class="stars-fill" style="width:70%"></span></span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">C++</span>
+            <span class="stars"><span class="stars-fill" style="width:50%"></span></span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Figma</span>
+            <span class="stars"><span class="stars-fill" style="width:80%"></span></span>
+          </div>
+        </div>
       </div>
     </div>
     <div class="intro-right">
