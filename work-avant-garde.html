@@ -47,6 +47,7 @@
     /* ── VIDEO EMBED ── */
     /* Drop your file in at assets/avant-garde/avant-garde.mp4
        If your animation isn't 16:9, change the aspect-ratio value below. */
+    .video-block { max-width: 1000px; margin: 0 auto; }
     .video-wrap {
       width: 100%;
       aspect-ratio: 16 / 9;
@@ -58,9 +59,7 @@
 
     /* ── PREV / NEXT ── */
     .work-nav {
-      margin: 4rem var(--pad) 0;
-      padding: 1.5rem 2rem;
-      border: 1px solid #e0e0e0;
+      padding: 1.5rem var(--pad);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -125,15 +124,17 @@
   </div>
 
   <!-- FINAL ANIMATION (video) -->
-  <div class="section">
-    <div class="video-wrap">
-      <video controls preload="metadata" poster="assets/avant-garde/poster.jpg">
-        <source src="assets/avant-garde/avant-garde.mp4" type="video/mp4" />
-        Your browser doesn&rsquo;t support embedded video.
-        <a href="assets/avant-garde/avant-garde.mp4">Download the animation</a>.
-      </video>
+  <div class="section" style="padding-top: 3rem;">
+    <div class="video-block">
+      <div class="video-wrap">
+        <video controls preload="metadata" poster="assets/avant-garde/poster.jpg">
+          <source src="assets/avant-garde/avant-garde.mp4" type="video/mp4" />
+          Your browser doesn&rsquo;t support embedded video.
+          <a href="assets/avant-garde/avant-garde.mp4">Download the animation</a>.
+        </video>
+      </div>
+      <p class="section-label">Final Animation</p>
     </div>
-    <p class="section-label">Final Animation</p>
   </div>
 
   <!-- PREV / NEXT -->
