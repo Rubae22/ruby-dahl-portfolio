@@ -43,10 +43,17 @@
     .exp-text { font-size: clamp(15px, 1.2vw, 18px); line-height: 1.75; color: #c8c8c8; max-width: 760px; margin-top: 1.75rem; }
     .closing { max-width: 760px; margin: 0 auto; padding: 1rem var(--pad) 2rem; font-size: clamp(15px, 1.3vw, 19px); line-height: 1.75; color: #c8c8c8; }
 
+    /* SKETCHES & PROCESS — one block per experiment */
+    .process { margin-top: 2.5rem; }
+    .process-label { font-size: clamp(11px, 0.9vw, 13px); font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--grey); margin-bottom: 1.25rem; display: block; }
+    .process-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .process-grid img { width: 100%; height: auto; display: block; background: #1a1a1a; }
+    @media (max-width: 600px) { .process-grid { grid-template-columns: 1fr; } }
+
     /* SUBMITTED ASSIGNMENT — single-page viewer (handles mixed page sizes) */
     .sg-viewer { display: flex; align-items: center; gap: 0.5rem; justify-content: center; }
     .sg-stage { flex: 1; min-width: 0; display: flex; justify-content: center; }
-    .sg-stage img { display: block; width: auto; max-width: 100%; height: auto; max-height: 70vh; background: #1a1a1a; box-shadow: 0 18px 50px rgba(0,0,0,0.55); }
+    .sg-stage img { display: block; width: auto; max-width: 100%; height: auto; max-height: 82vh; background: #1a1a1a; box-shadow: 0 18px 50px rgba(0,0,0,0.55); }
     .sg-arrow { flex: 0 0 auto; width: 46px; height: 46px; border: 1px solid #444; background: rgba(20,20,20,0.6); color: #fff; font-size: 26px; line-height: 1; cursor: pointer; border-radius: 50%; transition: background .2s, color .2s, border-color .2s, opacity .2s; display: flex; align-items: center; justify-content: center; }
     .sg-arrow:hover { background: #fff; color: #000; border-color: #fff; }
     .sg-arrow:disabled { opacity: 0.2; cursor: default; }
@@ -102,6 +109,13 @@
       <img class="exp-img" src="assets/type-experiments/experiment-1.png" alt="The word Martyr moulded into a raised, physical surface" />
     </div>
     <p class="exp-text">I focused on the word Martyr to capture the heaviness it carries, its biblical and cultural weight, and set that against the highly ornamental way blackletter capitals were historically crafted. I designed a custom ornamental M on a blackletter grid, digitised it and paired it with the typeface Sabbath Black, then printed the design and moulded the letters into a raised surface. The result gives the word a literal, physical weight and a real presence in three dimensions, letting the ornamentation elevate the word while exposing how heavy it is, both visually and conceptually.</p>
+    <div class="process">
+      <span class="process-label">Sketches &amp; Process</span>
+      <div class="process-grid">
+        <img src="assets/type-experiments/martyr-process-1.png" alt="Martyr ornamental letterform sketches and process" />
+        <img src="assets/type-experiments/martyr-process-2.png" alt="Martyr moulding process" />
+      </div>
+    </div>
   </div>
 
   <!-- MEDIUM EXPERIMENT -->
@@ -111,6 +125,13 @@
       <img class="exp-img" src="assets/type-experiments/coolio.png" alt="Blackletter and Cholo-style graffiti wall composition" />
     </div>
     <p class="exp-text">The second experiment explored the overlap between blackletter and graffiti through Cholo-style lettering, a hand-penned script that grew out of Old English and blackletter forms in mid-century Los Angeles. I layered sacred text, Psalm 23:4, with Coolio's reworking of the same passage in Gangsta's Paradise, hand-writing the blackletter with a chisel-tip marker and rendering the lyric half in a Cholo-inspired graffiti style. It became a study in translating language, style, medium and cultural meaning across one composition.</p>
+    <div class="process">
+      <span class="process-label">Sketches &amp; Process</span>
+      <div class="process-grid">
+        <img src="assets/type-experiments/coolio-process-1.png" alt="Blackletter and Cholo lettering sketches" />
+        <img src="assets/type-experiments/coolio-process-2.png" alt="Hand-penned process work" />
+      </div>
+    </div>
   </div>
 
   <!-- LARGE EXPERIMENT -->
@@ -120,6 +141,13 @@
       <img class="exp-img narrow" src="assets/type-experiments/SOtragic.png" alt="David Carson-inspired fragmented blackletter poster" />
     </div>
     <p class="exp-text">The large-scale experiment drew on David Carson's fragmented, layered poster work. Using lyrics from Bladee's One in a Million for their religious undertones, which tie back to blackletter's historic link to scripture, I reimagined the style not as rigid historical script but as something chaotic and collage-like. Distorting, overlapping and re-weighting words like tragic, million and sinned built hierarchy and depth, freeing blackletter into a more fluid and expressive direction.</p>
+    <div class="process">
+      <span class="process-label">Sketches &amp; Process</span>
+      <div class="process-grid">
+        <img src="assets/type-experiments/SOtragic-process-1.png" alt="Collage poster layout sketches" />
+        <img src="assets/type-experiments/SOtragic-process-2.png" alt="Fragmented blackletter process work" />
+      </div>
+    </div>
   </div>
 
   <p class="closing">Across all three outcomes, the project investigates how blackletter can shift between historical reference, material exploration and contemporary typographic expression while holding a consistent visual language.</p>
