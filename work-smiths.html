@@ -45,7 +45,7 @@
     }
 
     /* ── FULL-WIDTH IMAGE (moodboard, logo suite, social banner) ── */
-    .img-full { width: 100%; line-height: 0; }
+    .img-full { width: 100%; max-width: 900px; margin: 0 auto; line-height: 0; }
     .img-full img { width: 100%; height: auto; display: block; }
 
     /* ── POSTER ROW (3-up) ── */
@@ -57,19 +57,17 @@
     .sub-label { font-size: 14px; font-weight: 600; color: #222; margin-bottom: 1rem; }
     .fb-mockup { max-width: 840px; margin: 0 auto 1.25rem; line-height: 0; }
     .fb-mockup img { width: 100%; height: auto; display: block; }
-    .social-banner { line-height: 0; }
+    .social-banner { max-width: 840px; margin: 0 auto; line-height: 0; }
     .social-banner img { width: 100%; height: auto; display: block; }
 
     /* ── SIGNAGE (photo + colour variants) ── */
-    .signage-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 1rem; align-items: start; }
+    .signage-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 1rem; align-items: start; max-width: 900px; margin: 0 auto; }
     .signage-grid .panel { line-height: 0; }
     .signage-grid img { width: 100%; height: auto; display: block; }
 
     /* ── PREV / NEXT ── */
     .work-nav {
-      margin: 4rem var(--pad) 0;
-      padding: 1.5rem 2rem;
-      border: 1px solid #e0e0e0;
+      padding: 1.5rem var(--pad);
       display: flex;
       justify-content: space-between;
       align-items: center;
