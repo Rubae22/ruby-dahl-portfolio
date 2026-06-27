@@ -36,7 +36,8 @@
 
     /* SECTIONS */
     .section { max-width: 1080px; margin: 0 auto; padding: 3.5rem var(--pad); }
-    .section-label { font-size: clamp(11px, 0.9vw, 13px); font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grey); margin-bottom: 1.75rem; display: block; }
+    .section-label { font-size: clamp(11px, 0.9vw, 13px); font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grey); margin-bottom: 1.75rem; display: block; margin-left: min(0px, (1080px - 100vw) / 2); }
+    .section.full .section-label { margin-left: 0; }
     .caption { font-size: clamp(11px, 0.9vw, 13px); color: var(--grey); letter-spacing: 0.05em; margin-top: 0.85rem; line-height: 1.6; max-width: 760px; }
 
     /* IMAGE GRIDS (natural aspect, no cropping) */
@@ -47,6 +48,15 @@
     .exp-img { width: 100%; height: auto; display: block; background: #1a1a1a; }
     @media (max-width: 760px) { .imgrid.three { grid-template-columns: 1fr; } }
     @media (max-width: 560px) { .imgrid.two { grid-template-columns: 1fr; } }
+
+    /* full-width section (maps span the screen) */
+    .section.full { max-width: none; }
+
+    /* PROTEST PAIR — equal height, fills the row */
+    .poster-pair { display: flex; gap: 12px; align-items: flex-start; }
+    .poster-pair > div { flex-grow: 1; flex-basis: 0; min-width: 0; line-height: 0; }
+    .poster-pair img { width: 100%; height: auto; display: block; background: #1a1a1a; }
+    @media (max-width: 560px) { .poster-pair { flex-direction: column; } }
 
     /* RADIO BROADCAST */
     .radio-poster { max-width: 460px; width: 100%; height: auto; display: block; background: #1a1a1a; margin-bottom: 1.5rem; }
@@ -100,7 +110,7 @@
   </div>
 
   <!-- MAPS -->
-  <div class="section">
+  <div class="section full">
     <span class="section-label">Maps</span>
     <div class="imgrid three">
       <img src="assets/spec-design/map-1.png" alt="District map" />
@@ -118,11 +128,11 @@
   </div>
 
   <!-- PROTEST POSTERS -->
-  <div class="section">
+  <div class="section full">
     <span class="section-label">Protest Posters</span>
-    <div class="imgrid two">
-      <img src="assets/spec-design/protest-poster.png" alt="Arts and culture protest poster" />
-      <img src="assets/spec-design/protest-mockup.png" alt="Protest poster pasted up on the street" />
+    <div class="poster-pair">
+      <div><img src="assets/spec-design/protest-poster.png" alt="Arts and culture protest poster" /></div>
+      <div><img src="assets/spec-design/protest-mockup.png" alt="Protest poster pasted up on the street" /></div>
     </div>
     <p class="caption">Posters from the arts and culture uprising. With university courses cut back to frontline jobs like teaching, medicine and engineering, people who wanted to study culture and the arts pushed back. Shown flat and pasted up on the street.</p>
   </div>
@@ -168,6 +178,18 @@
     </div>
     <p class="footer-copy">Ruby Dahl Design 2026</p>
   </footer>
+
+  <script>
+  // Protest pair: equal height by setting each item's flex-grow to its image's aspect ratio
+  (function(){
+    var imgs = document.querySelectorAll('.poster-pair img');
+    Array.prototype.forEach.call(imgs, function(img){
+      function set(){ if(img.naturalWidth && img.naturalHeight){ img.parentElement.style.flexGrow = (img.naturalWidth / img.naturalHeight).toFixed(4); } }
+      if(img.complete) set();
+      img.addEventListener('load', set);
+    });
+  })();
+  </script>
 
 </body>
 </html>
