@@ -66,6 +66,7 @@
     .ticks { display: flex; justify-content: space-between; font-size: 10px; color: #555; margin-top: 5px; font-family: "Courier New",monospace; }
     .ocr-line { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #2a2a2a; }
     .ocr-lab { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey); flex-shrink: 0; }
+    .ocr-status { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey); }
     #ocrOut { font-family: "Courier New",monospace; font-size: 15px; letter-spacing: 0.05em; background: #f3e54e; color: #111; padding: 3px 8px; border-radius: 2px; min-height: 1.4em; word-break: break-all; }
 
     /* SPECIMEN SPREAD VIEWER */
@@ -197,7 +198,7 @@
     <div id="tab-degrader" class="tab-panel">
       <div class="tab-header">
         <span class="section-label" style="margin-bottom:0;">Letter Degrader</span>
-        <span class="tab-note">OCR API integration coming soon — results shown are estimated</span>
+        <span class="tab-note">Live OCR check by Tesseract.js, running in your browser</span>
       </div>
       <div class="degrader-wrap" id="degraderTool">
         <canvas id="toolCanvas"></canvas>
@@ -215,7 +216,9 @@
         <div class="ocr-line">
           <span class="ocr-lab">OCR reads:</span>
           <span id="ocrOut">&middot;</span>
+          <span class="ocr-status" id="ocrStatus"></span>
         </div>
+        <p class="caption" style="margin-top:1rem;">The check runs Tesseract.js on exactly what is drawn above, so results can vary a little between devices. The comparison below was run through an OCR API instead, so the two can read the same text differently.</p>
       </div>
     </div>
     <div id="tab-specimen" class="tab-panel" style="display:none;">
@@ -238,6 +241,32 @@
         <a class="spec-download" href="assets/ocr-evade/for-printing.pdf" target="_blank" rel="noopener">Open full PDF &#8599;</a>
       </div>
     </div>
+  </div>
+
+  <!-- FINISHED WORK -->
+  <!-- EXHIBITION INSTALLATION -->
+  <div class="section">
+    <span class="section-label">Exhibition Installation</span>
+    <div class="exhibition-grid">
+      <div class="img-wrap"><img src="assets/ocr-evade/exhibition-wide.png" alt="Exhibition wide view" /></div>
+      <div class="img-wrap"><img src="assets/ocr-evade/exhibition-detail.png" alt="Exhibition acrylic detail" /></div>
+      <div class="img-wrap"><img src="assets/ocr-evade/exhibition-sculpture.png" alt="OCR-Evade acrylic sculpture" /></div>
+      <div class="img-wrap"><img src="assets/ocr-evade/exhibition-book.png" alt="OCR-Evade type specimen book" /></div>
+    </div>
+    <p class="caption">The publication, letterpress specimens and acrylic objects shown together as a resolved body of work.</p>
+  </div>
+
+  <!-- ACRYLIC CMYK -->
+  <div class="section">
+    <span class="section-label">Acrylic CMYK Objects</span>
+    <div class="acrylic-grid">
+      <div class="acrylic-left"><img src="assets/ocr-evade/acrylic-close.png" alt="Acrylic CMYK letterforms close up" /></div>
+      <div class="acrylic-right">
+        <p class="acrylic-text">Layered in cyan, magenta and yellow acrylic and displayed slightly offset, the letterforms reference the CMYK print process while introducing another way of disrupting machine vision &#8212; the colour separation stays legible to a human viewer but confuses the scan.</p>
+        <div class="acrylic-small"><img src="assets/ocr-evade/acrylic-flat.png" alt="Acrylic OCR-Evade flat lay" /></div>
+      </div>
+    </div>
+    <p class="caption">Large laser-cut letterforms extend OCR-Evade off the page and into the exhibition space.</p>
   </div>
 
   <!-- DEGRADATION STAGES -->
@@ -296,31 +325,6 @@
     <p class="caption">Letterforms were laser-engraved into acrylic, then hand-inked and printed. A 3D printed registration guide kept the plates aligned across degradation stages.</p>
   </div>
 
-  <!-- ACRYLIC CMYK -->
-  <div class="section">
-    <span class="section-label">Acrylic CMYK Objects</span>
-    <div class="acrylic-grid">
-      <div class="acrylic-left"><img src="assets/ocr-evade/acrylic-close.png" alt="Acrylic CMYK letterforms close up" /></div>
-      <div class="acrylic-right">
-        <p class="acrylic-text">Layered in cyan, magenta and yellow acrylic and displayed slightly offset, the letterforms reference the CMYK print process while introducing another way of disrupting machine vision &#8212; the colour separation stays legible to a human viewer but confuses the scan.</p>
-        <div class="acrylic-small"><img src="assets/ocr-evade/acrylic-flat.png" alt="Acrylic OCR-Evade flat lay" /></div>
-      </div>
-    </div>
-    <p class="caption">Large laser-cut letterforms extend OCR-Evade off the page and into the exhibition space.</p>
-  </div>
-
-  <!-- EXHIBITION INSTALLATION -->
-  <div class="section">
-    <span class="section-label">Exhibition Installation</span>
-    <div class="exhibition-grid">
-      <div class="img-wrap"><img src="assets/ocr-evade/exhibition-wide.png" alt="Exhibition wide view" /></div>
-      <div class="img-wrap"><img src="assets/ocr-evade/exhibition-detail.png" alt="Exhibition acrylic detail" /></div>
-      <div class="img-wrap"><img src="assets/ocr-evade/exhibition-sculpture.png" alt="OCR-Evade acrylic sculpture" /></div>
-      <div class="img-wrap"><img src="assets/ocr-evade/exhibition-book.png" alt="OCR-Evade type specimen book" /></div>
-    </div>
-    <p class="caption">The publication, letterpress specimens and acrylic objects shown together as a resolved body of work.</p>
-  </div>
-
   <div class="work-nav">
     <span></span>
     <a href="work.html" class="works-link">Works</a>
@@ -356,6 +360,9 @@
           crossorigin="anonymous"
           onload="window._otState='ok';"
           onerror="window._otState='fail';"></script>
+
+  <!-- tesseract.js (live OCR check, runs in the visitor's browser) -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js" crossorigin="anonymous"></script>
 
   <!-- OCR-B font as base64 + degrader engine -->
   <script>
@@ -431,23 +438,54 @@
 
     function drawTool(){ if(!toolState)return; var ctx=toolState.ctx,W=toolState.w,H=toolState.h; ctx.clearRect(0,0,W,H);
       if(!READY){ ctx.fillStyle='#fff'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.font='700 '+Math.min(H*0.5,W/Math.max(curWord.length,1)*1.4)+'px "OCRB","Courier New",monospace'; ctx.globalAlpha=1-curT*0.5; ctx.fillText(curWord,W/2,H/2); ctx.globalAlpha=1; return; }
+      paintWord(ctx,W,H,'#fff'); }
+
+    function paintWord(ctx,W,H,fill){
       var letters=curWord.split(""),total=0,items=[],k,g; for(k=0;k<letters.length;k++){ if(letters[k]===' '){ items.push({sp:true,adv:FS*0.5}); total+=FS*0.5; continue; } g=glyph(letters[k]); items.push({g:g,adv:g.adv}); total+=g.adv; } if(total<=0)return;
-      var s=Math.min((W*0.9)/total,(H*0.5)/FS), penX=(W-total*s)/2; ctx.save(); ctx.fillStyle='#fff';
+      var s=Math.min((W*0.9)/total,(H*0.5)/FS), penX=(W-total*s)/2; ctx.save(); ctx.fillStyle=fill;
       for(k=0;k<items.length;k++){ var it=items[k]; if(it.sp){ penX+=it.adv*s; continue; } ctx.save(); ctx.translate(penX,H/2); ctx.scale(s,s); ctx.translate(0,-it.g.bcy); degrade(ctx,it.g,curT); ctx.restore(); penX+=it.adv*s; } ctx.restore(); }
 
-    // simulated OCR readout (the live API call is noted as "coming soon" on the page)
-    var confus={O:['0','Q','C'],C:['G','O','('],R:['P','B','K'],E:['B','8','F'],V:['Y','U'],A:['4','R'],D:['O','0','B'],'-':['~','_'],S:['5','$'],T:['1','+'],N:['M','H'],I:['1','|'],L:['1','I'],G:['6','C'],B:['8','R'],M:['N','W'],P:['R','F'],U:['V'],H:['M','N'],F:['E','P'],K:['X'],W:['M'],X:['K','%'],Y:['V'],Z:['2'],Q:['O','0'],J:['1']};
-    function rg(){ var s="#@%&8O0Q?*"; return s[Math.floor(Math.random()*s.length)]; }
-    function ocrRead(text,t){ var out=[],ch=text.split(""),k,c,r,arr; for(k=0;k<ch.length;k++){ c=ch[k]; if(c===' '){ out.push(' '); continue; } r=Math.random(); if(r<t*0.16)continue; if(r<t*0.9){ arr=confus[c]; out.push(arr?arr[Math.floor(Math.random()*arr.length)]:(Math.random()<t?rg():c)); } else out.push(c); } var s=out.join(""); return s.length?s:'\u00B7'; }
-    function refreshOcr(){ if(ocrOut) ocrOut.textContent=ocrRead(curWord,curT); }
+    // === live OCR check (Tesseract.js, runs in the browser) ===
+    var ocrStatus=document.getElementById('ocrStatus');
+    var ocrWorker=null, ocrState='idle', ocrRun=0, ocrTimer=null;
+    var ocrCv=document.createElement('canvas'); ocrCv.width=1600; ocrCv.height=400;
+    function setStatus(t){ if(ocrStatus) ocrStatus.textContent=t||''; }
+    function ocrFail(){ ocrState='fail'; if(ocrOut) ocrOut.textContent='·'; setStatus('OCR engine could not load, check your connection'); }
+    function initOcr(){
+      if(ocrState!=='idle') return;
+      if(!window.Tesseract){ ocrFail(); return; }
+      ocrState='loading'; setStatus('loading OCR engine');
+      window.Tesseract.createWorker('eng').then(function(w){
+        ocrWorker=w;
+        var psm=(window.Tesseract.PSM&&window.Tesseract.PSM.SINGLE_LINE)||'7';
+        return Promise.resolve(w.setParameters({ tessedit_pageseg_mode: psm })).catch(function(){});
+      }).then(function(){ ocrState='ready'; runOcr(); }).catch(ocrFail);
+    }
+    // the OCR sees the same degraded letters as the visitor, drawn black on white
+    function paintOcrInput(){ var c=ocrCv.getContext('2d'); c.setTransform(1,0,0,1,0,0); c.fillStyle='#fff'; c.fillRect(0,0,ocrCv.width,ocrCv.height); paintWord(c,ocrCv.width,ocrCv.height,'#000'); }
+    function runOcr(){
+      if(ocrState!=='ready') return;
+      if(!READY){ setStatus('font not loaded, OCR check unavailable'); return; }
+      var id=++ocrRun; paintOcrInput(); setStatus('reading');
+      ocrWorker.recognize(ocrCv).then(function(ret){
+        if(id!==ocrRun) return;   // a newer request has replaced this one
+        var txt=((ret&&ret.data&&ret.data.text)||'').replace(/\s+/g,' ').trim();
+        if(ocrOut) ocrOut.textContent=txt||'·';
+        setStatus(txt?'':'nothing detected');
+      }).catch(function(){ if(id===ocrRun) setStatus('OCR check failed, move the slider to try again'); });
+    }
+    function queueOcr(){ if(ocrState==='ready') setStatus('reading'); clearTimeout(ocrTimer); ocrTimer=setTimeout(runOcr,450); }
+    window.addEventListener('pagehide',function(){ try{ if(ocrWorker) ocrWorker.terminate(); }catch(e){} });
     function readInputs(){ curWord=((wordIn&&wordIn.value)||"OCR-EVADE").toUpperCase(); curT=(slider?parseInt(slider.value,10):0)/100; if(pctOut)pctOut.textContent=(slider?slider.value:0)+'%'; }
 
-    if(slider) slider.addEventListener('input',function(){ readInputs(); refreshOcr(); drawTool(); });
-    if(wordIn) wordIn.addEventListener('input',function(){ readInputs(); refreshOcr(); drawTool(); });
-    setInterval(function(){ if(curT>0.02) refreshOcr(); },720);
+    function onChange(){ readInputs(); drawTool(); queueOcr(); }
+    if(slider) slider.addEventListener('input',onChange);
+    if(wordIn) wordIn.addEventListener('input',onChange);
 
     // boot
-    setupHero(); setupTool(); readInputs(); refreshOcr(); drawTool();
+    setupHero(); setupTool(); readInputs(); drawTool();
+    // the OCR engine is a few MB, so only start it once the degrader is close to the screen
+    if(toolCv && 'IntersectionObserver' in window){ var oio=new IntersectionObserver(function(es){ if(es[0].isIntersecting){ oio.disconnect(); initOcr(); } },{rootMargin:'300px'}); oio.observe(toolCv); } else { initOcr(); }
     if(heroState && 'IntersectionObserver' in window){ new IntersectionObserver(function(es){ es.forEach(function(e){ heroVisible=e.isIntersecting; }); }).observe(heroCv); }
     var raf;
     function loop(time){ if(heroVisible) drawHero(time); raf=requestAnimationFrame(loop); }

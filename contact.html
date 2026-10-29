@@ -9,14 +9,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Fustat:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="shared.css" />
   <style>
-    body { background: var(--white); color: var(--black); min-height: 100vh; cursor: none; }
+    :root { --accent: #FF5FA8; }   /* swapped for this visit's r colour by the script below */
+
+    body { background: var(--black); color: var(--white); min-height: 100vh; cursor: none; }
 
     /* ── CUSTOM CURSOR ── */
     .cursor {
       position: fixed;
       width: 12px;
       height: 12px;
-      background: var(--black);
+      background: var(--white);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
@@ -37,128 +39,109 @@
     /* push content above canvas */
     .nav, .contact-wrap, .footer { position: relative; z-index: 1; }
 
-    .nav { background: var(--white); }
+    .nav { background: var(--black); }
     .nav-logo img { height: 55px; width: 46px; object-fit: contain; }
-    .nav-links a { color: var(--black); border-color: var(--black); }
-    .nav-links a:hover { background: var(--black); color: var(--white); }
+    .nav-links a { color: var(--white); border-color: var(--white); }
+    .nav-links a:hover { background: var(--white); color: var(--black); }
+
+    /* ── HINT ── */
+    .cursor-hint {
+      position: fixed;
+      top: 5.5rem;
+      right: var(--pad);
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #666;
+      z-index: 10;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .cursor-hint:hover { color: var(--white); }
 
     /* ── MAIN ── */
     .contact-wrap {
       min-height: calc(100vh - 80px);
-      display: grid;
-      grid-template-rows: 1fr auto;
-      padding: 4rem var(--pad) 5rem;
-    }
-
-    .contact-top {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(3rem, 6vw, 8rem);
-      align-items: end;
-      padding-bottom: 5rem;
-    }
-
-    .contact-heading {
-      font-size: clamp(56px, 8vw, 130px);
-      font-weight: 800;
-      line-height: 0.95;
-      letter-spacing: -0.03em;
-      margin-bottom: 2rem;
-    }
-    .contact-heading .line-light { display: block; font-weight: 300; color: #aaa; }
-    .contact-heading .line-bold  { display: block; font-weight: 800; color: var(--black); }
-
-    .contact-intro {
-      font-size: clamp(16px, 1.4vw, 22px);
-      font-weight: 400;
-      line-height: 1.7;
-      color: #444;
-      max-width: 48ch;
-    }
-    .contact-intro.cta { margin-top: 1.25em; font-weight: 600; color: var(--black); }
-
-    .contact-right {
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
-      gap: 2.5rem;
+      justify-content: flex-end;   /* links sit low and left, the rest of the screen is open for the r marks */
+      gap: 2rem;
+      padding: 3rem var(--pad) 3rem;
     }
 
-    .contact-prompt {
-      font-size: clamp(11px, 0.9vw, 13px);
+    .contact-bio {
+      font-size: clamp(15px, 1.25vw, 19px);
+      line-height: 1.7;
+      color: #c8c8c8;
+      max-width: 52ch;
+    }
+
+    /* ── THE FOUR BIG LINKS ── */
+    .contact-links { width: 100%; max-width: 900px; border-top: 1px solid #262626; }
+    .contact-link {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.5rem 1.5rem;
+      padding: clamp(0.7rem, 1.6vh, 1.1rem) 0;
+      border-bottom: 1px solid #262626;
+      transition: color 0.2s, padding-left 0.25s;
+    }
+    .contact-link-text {
+      flex: 1 1 auto;
+      min-width: 0;
+      font-size: clamp(30px, 3vw, 46px);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+    .contact-link-handle {
+      font-size: clamp(11px, 1vw, 14px);
       font-weight: 500;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--grey);
-      margin-bottom: 0.6rem;
-    }
-
-    .contact-email-link {
-      display: block;
-      font-size: clamp(18px, 2vw, 28px);
-      font-weight: 600;
-      color: var(--black);
-      text-decoration: none;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid #ddd;
+      text-align: right;
       transition: color 0.2s;
     }
-    .contact-email-link:hover { color: var(--grey); }
-
-    .contact-socials { display: flex; gap: 1rem; flex-wrap: wrap; }
-
-    .social-link {
-      font-family: var(--font);
-      font-size: clamp(13px, 1vw, 15px);
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--black);
-      text-decoration: none;
-      border: 1px solid var(--black);
-      padding: 0.6rem 1.4rem;
-      transition: background 0.2s, color 0.2s;
+    .contact-link-arrow {
+      font-size: clamp(20px, 2vw, 30px);
+      line-height: 1;
+      transition: transform 0.25s;
     }
-    .social-link:hover { background: var(--black); color: var(--white); }
+    .contact-link:hover { color: var(--accent); padding-left: 1rem; }
+    .contact-link:hover .contact-link-handle { color: var(--white); }
+    .contact-link:hover .contact-link-arrow { transform: translate(4px, -4px); }
 
     /* ── FOOTER ── */
-    .footer { background: var(--white); }
-    .footer-brand-name { color: var(--black); }
-    .footer-contact h3 { color: var(--black); }
-    .footer-pages h3 { color: var(--black); }
-    .footer-socials svg { fill: var(--black); }
+    .footer { background: var(--black); }
+    .footer-brand-name { color: var(--white); }
+    .footer-contact h3 { color: var(--white); }
+    .footer-pages h3 { color: var(--white); }
+    .footer-socials svg { fill: var(--white); }
     .footer-pages a { color: var(--grey); }
-    .footer-copy { color: #bbb; }
+    .footer-copy { color: #444; }
 
     @media (max-width: 768px) {
       body { cursor: auto; }
       .cursor { display: none; }
+      .cursor-hint { display: none; }
       #stamp-canvas { display: none; }
-      .contact-top { grid-template-columns: 1fr; align-items: start; }
+      .contact-link-text { flex: 1 1 0; }
+      .contact-link-handle { order: 3; width: 100%; text-align: left; }
     }
     @media (prefers-reduced-motion: reduce) {
       #stamp-canvas { display: none; }
+      .cursor-hint { display: none; }
     }
   </style>
 </head>
 <body>
 
   <!-- Hint -->
-  <div id="cursor-hint" style="
-    position: fixed;
-    bottom: 2rem;
-    right: var(--pad, 2.5rem);
-    font-family: 'Fustat', sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: #bbb;
-    z-index: 10;
-    cursor: pointer;
-    transition: opacity 0.3s ease;
-    text-decoration: none;
-  " onclick="window.location.reload()" title="Get a new colour">↺ refresh for a new colour</div>
+  <div class="cursor-hint" id="cursor-hint" onclick="window.location.reload()" title="Get a new colour">&#8634; refresh for a new colour</div>
 
   <!-- Custom cursor -->
   <div class="cursor" id="cursor"></div>
@@ -168,7 +151,7 @@
 
   <nav class="nav">
     <a href="index.html" class="nav-logo">
-      <img src="assets/logo-black.png" alt="Ruby Dahl Design" />
+      <img src="assets/logo-white.png" alt="Ruby Dahl Design" />
     </a>
     <ul class="nav-links">
       <li><a href="work.html">Works</a></li>
@@ -176,38 +159,45 @@
     </ul>
   </nav>
 
-  <div class="contact-wrap">
-    <div class="contact-top">
-      <div class="contact-left">
-        <h1 class="contact-heading">
-          <span class="line-light">Let's</span>
-          <span class="line-bold">work</span>
-          <span class="line-light">together.</span>
-        </h1>
-        <p class="contact-intro">I'm a graphic designer currently based in Canberra, Australia. Completing a Bachelor of Design at the Australian National University's School of Art &amp; Design, with a focus on graphic design, branding and typography.</p>
-        <p class="contact-intro cta">Get in touch!</p>
-      </div>
+  <main class="contact-wrap">
+    <p class="contact-bio">I'm a graphic designer currently based in Canberra, Australia. Completing a Bachelor of Design at the Australian National University's School of Art &amp; Design, with a focus on graphic design, branding and typography.</p>
 
-      <div class="contact-right">
-        <div>
-          <p class="contact-prompt">Send me an email</p>
-          <a href="mailto:ruby.dahl@optusnet.com.au" class="contact-email-link">ruby.dahl@optusnet.com.au</a>
-        </div>
-        <div>
-          <p class="contact-prompt">Find me online</p>
-          <div class="contact-socials">
-            <a href="https://www.instagram.com/_ruby.des1gn" target="_blank" rel="noopener" class="social-link">Instagram</a>
-            <a href="https://www.linkedin.com/in/ruby-dahl-a9a1a127b/" target="_blank" rel="noopener" class="social-link">LinkedIn</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    <ul class="contact-links">
+      <li>
+        <a class="contact-link" href="https://www.instagram.com/_ruby.des1gn" target="_blank" rel="noopener">
+          <span class="contact-link-text">Follow me on Instagram</span>
+          <span class="contact-link-handle">@_ruby.des1gn</span>
+          <span class="contact-link-arrow" aria-hidden="true">&#8599;</span>
+        </a>
+      </li>
+      <li>
+        <a class="contact-link" href="https://www.linkedin.com/in/ruby-dahl-a9a1a127b/" target="_blank" rel="noopener">
+          <span class="contact-link-text">Find me on LinkedIn</span>
+          <span class="contact-link-handle">Ruby Dahl</span>
+          <span class="contact-link-arrow" aria-hidden="true">&#8599;</span>
+        </a>
+      </li>
+      <li>
+        <a class="contact-link" href="mailto:ruby.dahl@optusnet.com.au">
+          <span class="contact-link-text">Send me an email</span>
+          <span class="contact-link-handle">ruby.dahl@optusnet.com.au</span>
+          <span class="contact-link-arrow" aria-hidden="true">&#8599;</span>
+        </a>
+      </li>
+      <li>
+        <a class="contact-link" href="assets/ruby-dahl-cv.pdf" target="_blank" rel="noopener">
+          <span class="contact-link-text">Have a look at my CV</span>
+          <span class="contact-link-handle">PDF</span>
+          <span class="contact-link-arrow" aria-hidden="true">&#8599;</span>
+        </a>
+      </li>
+    </ul>
+  </main>
 
   <footer class="footer">
     <div class="footer-brand">
       <div class="footer-brand-icon">
-        <img src="assets/logo-black.png" alt="" />
+        <img src="assets/logo-white.png" alt="" />
       </div>
       <span class="footer-brand-name">Ruby<br>Dahl</span>
     </div>
@@ -237,11 +227,6 @@
   </footer>
 
   <script>
-    // ── HINT — hover to highlight ──
-    const hint = document.getElementById('cursor-hint');
-    hint.addEventListener('mouseenter', () => hint.style.color = '#111');
-    hint.addEventListener('mouseleave', () => hint.style.color = '#bbb');
-
     // ── CURSOR ──
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', e => {
@@ -265,23 +250,25 @@
     const W        = 92;            // width of each mark
     const H        = Math.round(92 * 512 / 429); // height preserving ratio (~110)
     const MIN_DIST = 100;
-    const OPACITY  = 0.4;
+    const OPACITY  = 0.9;
     const FADE_SPD = 0.7;
 
     // 8 possible modes — 7 single colours + 1 all-cycling
     const MODES = [
-      ['#6B7FA3'],                                                              // slate blue
-      ['#A86B9E'],                                                              // pink-purple
-      ['#D44F8E'],                                                              // bright pink
-      ['#C4712A'],                                                              // true orange
-      ['#7A9E7E'],                                                              // sage
-      ['#6B9EA3'],                                                              // muted teal
-      ['#5B5B9E'],                                                              // indigo
-      ['#6B7FA3','#A86B9E','#D44F8E','#C4712A','#7A9E7E','#6B9EA3','#5B5B9E'], // all
+      ['#8FA8FF'],                                                              // slate blue
+      ['#E08CD2'],                                                              // pink-purple
+      ['#FF5FA8'],                                                              // bright pink
+      ['#FF9A3C'],                                                              // true orange
+      ['#8FE3A0'],                                                              // sage
+      ['#6FE3EC'],                                                              // muted teal
+      ['#9A9AFF'],                                                              // indigo
+      ['#8FA8FF','#E08CD2','#FF5FA8','#FF9A3C','#8FE3A0','#6FE3EC','#9A9AFF'], // all
     ];
 
     // Pick a random mode on each page load
     const SESSION_PALETTE = MODES[Math.floor(Math.random() * MODES.length)];
+    // link hover colour matches this visit's r colour
+    document.documentElement.style.setProperty('--accent', SESSION_PALETTE[0]);
     let colourIndex = 0;
 
     // ── LOAD LOGO & BUILD TINTED VERSION ──

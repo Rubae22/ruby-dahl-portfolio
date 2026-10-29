@@ -17,13 +17,59 @@
 
     /* ── HERO ── */
     .hero {
-      min-height: calc(100vh - 60px);
+      position: relative;
+      /* slightly shorter than the screen so the next section peeks in */
+      min-height: calc(100vh - 60px - 10vh);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 4rem var(--pad);
+      padding: 4rem var(--pad) 6rem;
       text-align: center;
+    }
+
+    /* ── SCROLL CUE ── */
+    .scroll-cue {
+      position: absolute;
+      left: 50%;
+      bottom: 1.75rem;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: clamp(11px, 1vw, 13px);
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--white);
+      opacity: 1;
+      transition: opacity 0.4s;
+    }
+    .scroll-cue.is-hidden { opacity: 0; pointer-events: none; }
+    .scroll-cue-line {
+      position: relative;
+      width: 1px;
+      height: 44px;
+      background: #333;
+      overflow: hidden;
+    }
+    .scroll-cue-line::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      background: var(--white);
+      animation: scroll-drip 1.8s ease-in-out infinite;
+    }
+    @keyframes scroll-drip {
+      0%   { transform: translateY(-100%); }
+      100% { transform: translateY(200%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-cue-line::after { animation: none; transform: none; }
     }
     .hero-wordmark {
       width: min(720px, 90vw);
@@ -229,9 +275,14 @@
            onerror="this.style.display='none';this.nextElementSibling.style.display='block'" />
       <div class="hero-wordmark-fallback" style="display:none;">Ruby Dahl<br>Design</div>
     </div>
+
+    <a href="#intro" class="scroll-cue" id="scrollCue" aria-label="Scroll down to see more">
+      <span>Scroll</span>
+      <span class="scroll-cue-line"></span>
+    </a>
   </section>
 
-  <section class="intro">
+  <section class="intro" id="intro">
     <div class="intro-left">
       <p class="intro-eyebrow">Portfolio — 2026</p>
 
@@ -298,38 +349,34 @@
       <span class="featured-label">Selected Work</span>
       <a href="work.html" class="featured-link">All projects →</a>
     </div>
-    <div class="featured-header">
-        <!-- Your header content here -->
-    </div>
-
     <div class="featured-grid">
 
-        <a href="work-ocr-evade.html" class="featured-item">
-            <div class="featured-item-img">
-                <img src="assets/ocr-evade.jpg" alt="OCR-Evade project">
-            </div>
-            <p class="featured-item-tag">Code / Typography</p>
-            <h2 class="featured-item-title">OCR-Evade</h2>
-        </a>
+      <a href="work-ocr-evade.html" class="featured-item">
+        <div class="featured-item-img">
+          <img src="assets/ocr-evade.jpg" alt="OCR-Evade project">
+        </div>
+        <p class="featured-item-tag">Code / Typography</p>
+        <h2 class="featured-item-title">OCR-Evade</h2>
+      </a>
 
-        <a href="work-avant-garde.html" class="featured-item">
-            <div class="featured-item-img">
-                <img src="assets/avant-garde.jpg" alt="Avant Garde Animation">
-            </div>
-            <p class="featured-item-tag">Motion</p>
-            <h2 class="featured-item-title">Avant Garde Animation</h2>
-        </a>
+      <a href="work-grad-show.html" class="featured-item">
+        <div class="featured-item-img">
+          <img src="assets/grad-show.jpg" alt="Grad Show logo">
+        </div>
+        <p class="featured-item-tag">Branding / Web</p>
+        <h2 class="featured-item-title">Grad Show</h2>
+      </a>
 
-        <a href="work-majura-wine.html" class="featured-item">
-            <div class="featured-item-img">
-                <img src="assets/majura-wine.jpg" alt="Mount Majura Wine">
-            </div>
-            <p class="featured-item-tag">Branding</p>
-            <h2 class="featured-item-title">Mount Majura Wine</h2>
-        </a>
+      <a href="work-emotorise.html" class="featured-item">
+        <div class="featured-item-img">
+          <img src="assets/emotorise.jpg" alt="Emotorise typeface">
+        </div>
+        <p class="featured-item-tag">Typography / Group project</p>
+        <h2 class="featured-item-title">Emotorise</h2>
+      </a>
 
     </div>
-</section>
+  </section>
 
   <footer class="footer">
     <div class="footer-brand">
@@ -358,6 +405,26 @@
     </div>
     <p class="footer-copy">Ruby Dahl Design 2026</p>
   </footer>
+
+  <script>
+    // Smooth scroll for the cue, and fade it out once the visitor starts scrolling
+    (function () {
+      var cue = document.getElementById('scrollCue');
+      var intro = document.getElementById('intro');
+      if (!cue || !intro) return;
+
+      cue.addEventListener('click', function (e) {
+        e.preventDefault();
+        intro.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+
+      function onScroll() {
+        cue.classList.toggle('is-hidden', window.scrollY > 40);
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+  </script>
 
 </body>
 </html>
