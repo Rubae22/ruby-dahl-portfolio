@@ -43,9 +43,11 @@
       letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--white);
-      opacity: 1;
-      transition: opacity 0.4s;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.8s;
     }
+    .scroll-cue.is-ready { opacity: 1; pointer-events: auto; }
     .scroll-cue.is-hidden { opacity: 0; pointer-events: none; }
     .scroll-cue-line {
       position: relative;
@@ -417,6 +419,9 @@
         e.preventDefault();
         intro.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
+
+      // only show the cue if they're still on the logo after a moment
+      setTimeout(function () { cue.classList.add('is-ready'); }, 1500);
 
       function onScroll() {
         cue.classList.toggle('is-hidden', window.scrollY > 40);
